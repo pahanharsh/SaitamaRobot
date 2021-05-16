@@ -1,14 +1,14 @@
 {
-      "name": "SaitamaRobot",
+      "name": "PainRobot",
       "description": "An Anime themed Telegram group management bot.",
       "keywords": [
          "telegram",
          "anime",
          "group",
          "manager",
-         "Saitama"
+         "paim"
       ],   
-   "repository": "https://github.com/AnimeKaizoku/SaitamaRobot",
+   "repository": "https://github.com/PAINBOI2008/PainRobot",
    "addons": [
       {
          "options": {
