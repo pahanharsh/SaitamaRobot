@@ -9,7 +9,6 @@ from telegram import (InlineKeyboardButton, InlineKeyboardMarkup, ParseMode,
 from telegram.ext import CallbackContext, run_async
 
 info_btn = "More Information"
-kaizoku_btn = "Kaizoku ☠️"
 kayo_btn = "Kayo 🏴‍☠️"
 animespot_btn = "Animespot ☠️"
 animetm_btn = "Animetm ☠️"
@@ -29,23 +28,7 @@ def site_search(update: Update, context: CallbackContext, site: str):
         message.reply_text("Give something to search")
         return
 
-    if site == "kaizoku":
-        search_url = f"https://animekaizoku.com/?s={search_query}"
-        html_text = requests.get(search_url).text
-        soup = bs4.BeautifulSoup(html_text, "html.parser")
-        search_result = soup.find_all("h2", {'class': "post-title"})
-
-        if search_result:
-            result = f"<b>Search results for</b> <code>{html.escape(search_query)}</code> <b>on</b> <code>AnimeKaizoku</code>: \n"
-            for entry in search_result:
-                post_link = "https://animekaizoku.com/" + entry.a['href']
-                post_name = html.escape(entry.text)
-                result += f"• <a href='{post_link}'>{post_name}</a>\n"
-        else:
-            more_results = False
-            result = f"<b>No result found for</b> <code>{html.escape(search_query)}</code> <b>on</b> <code>AnimeKaizoku</code>"
-
-    elif site == "kayo":
+    if site == "kayo":
         search_url = f"https://animekayo.com/?s={search_query}"
         html_text = requests.get(search_url).text
         soup = bs4.BeautifulSoup(html_text, "html.parser")
@@ -113,11 +96,6 @@ def site_search(update: Update, context: CallbackContext, site: str):
 
 
 @run_async
-def kaizoku(update: Update, context: CallbackContext):
-    site_search(update, context, "kaizoku")
-
-
-@run_async
 def kayo(update: Update, context: CallbackContext):
     site_search(update, context, "kayo")
     
@@ -130,15 +108,13 @@ def animetm(update: Update, context: CallbackContext):
     site_search(update, context, "animetm")
     
 
-KAIZOKU_SEARCH_HANDLER = DisableAbleCommandHandler("kaizoku", kaizoku)
 KAYO_SEARCH_HANDLER = DisableAbleCommandHandler("kayo", kayo)
 ANIMESPOT_SEARCH_HANDLER = DisableAbleCommandHandler("animespot", animespot)
 ANIMETM_SEARCH_HANDLER = DisableAbleCommandHandler("animetm", animetm)
 
-dispatcher.add_handler(KAIZOKU_SEARCH_HANDLER)
 dispatcher.add_handler(KAYO_SEARCH_HANDLER)
 dispatcher.add_handler(ANIMESPOT_SEARCH_HANDLER)
 dispatcher.add_handler(ANIMETM_SEARCH_HANDLER)
 
-__handlers__ = [ KAIZOKU_SEARCH_HANDLER, KAYO_SEARCH_HANDLER,
+__handlers__ = [ KAYO_SEARCH_HANDLER,
      ANIMESPOT_SEARCH_HANDLER,  ANIMETM_SEARCH_HANDLER]
