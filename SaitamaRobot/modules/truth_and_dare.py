@@ -18,10 +18,6 @@ def dare(update: Update, context: CallbackContext):
 
 __help__ = """
 
-• `/stickerid`*:* reply to a sticker to me to tell you its file ID.
-
-• `/getsticker`*:* reply to a sticker to me to upload its raw PNG file.
-
 • `/dare`*:* Get a dare that you will have to do now.
 
 • `/truth`*:* Get a question that you will have to tell truth about.
