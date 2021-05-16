@@ -52,8 +52,8 @@ def get_readable_time(seconds: int) -> str:
 
 
 PM_START_TEXT = """
-*Eureka! {}, myself {}!* 
-*An Anime themed group management bot from* [Steins;Gate](https://anilist.co/anime/9253)!!
+*Hello,  {}!, myself {}!* 
+*An Anime themed group management bot!
 
 • *Uptime:* `{}`
 • `{}` *users, across* `{}` *chats.*
@@ -69,8 +69,8 @@ HELP_STRINGS = """
     dispatcher.bot.first_name, ""
     if not ALLOW_EXCL else "\nAll commands can either be used with / or !.\n")
 
-KURISU_IMG = "https://telegra.ph/file/6152bf2f73ca8ea30772a.png"
-KURISUIMGSTART = "https://telegra.ph/file/bd01a439fefb53170b36f.gif"
+KURISU_IMG = "https://telegra.ph/file/9127957b0437ed3a64332.jpg"
+KURISUIMGSTART = "https://telegra.ph/file/75aed4e9f47b3ea45c962.mp4"
 
 DONATE_STRING = """Heya, glad to hear you want to donate!
 You can donate to the original writer of the Base code, Paul
@@ -195,7 +195,7 @@ def start(update: Update, context: CallbackContext):
                 reply_markup=InlineKeyboardMarkup(
                     [[
                         InlineKeyboardButton(
-                            text="➕ Add Kurisu To Your Group",
+                            text=" Add Pain To Your Group",
                             url="t.me/{}?startgroup=true".format(
                                 context.bot.username))
                     ],
@@ -205,25 +205,25 @@ def start(update: Update, context: CallbackContext):
                              url=f"https://t.me/{SUPPORT_CHAT}"),
                          InlineKeyboardButton(
                              text="🎉 Updates",
-                             url="https://t.me/steinsupdates"),
+                             url="https://t.me/PainRobotUpdates"),
                          InlineKeyboardButton(
                              text="🗃 Guide",
-                             url="https://t.me/Steinsupdates/7"),
+                             url="https://t.me/PainRobotUpdates/4"),
               
                     ],
                      [
                         InlineKeyboardButton(
-                             text="Anime Chat",
-                             url="https://t.me/ias_chats"),                    
+                             text="Nexus Network",
+                             url="https://t.me/nexusgroups"),                    
                         InlineKeyboardButton(
                              text="Help & Commands",
-                             url="https://t.me/Kurisu_Makise_Robot?start=help"),      
+                             url="https://t.me/PainAkatsukiRobot?start=help"),      
                     ]]))
     else:
         update.effective_message.reply_video(
                 KURISUIMGSTART)
         update.effective_message.reply_text(
-            "I'm awake already!\n<b>Haven't slept since:</b> <code>{}</code>"
+            "I'm Reincarnated already!\n<b>Haven't died since:</b> <code>{}</code>"
             .format(uptime),
             parse_mode=ParseMode.HTML)
 
