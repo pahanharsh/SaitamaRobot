@@ -16,6 +16,19 @@ def dare(update: Update, context: CallbackContext):
     args = context.args
     update.effective_message.reply_text(random.choice(truth_and_dare_string.DARE))
 
+__help__ = """
+
+• `/stickerid`*:* reply to a sticker to me to tell you its file ID.
+
+• `/getsticker`*:* reply to a sticker to me to upload its raw PNG file.
+
+• `/dare`*:* Get a dare that you will have to do now.
+
+• `/truth`*:* Get a question that you will have to tell truth about.
+
+"""
+
+__mod_name__ = "Truth And Dare"
 TRUTH_HANDLER = DisableAbleCommandHandler("truth", truth)
 DARE_HANDLER = DisableAbleCommandHandler("dare", dare)
 
