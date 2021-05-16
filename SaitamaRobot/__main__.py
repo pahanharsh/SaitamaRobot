@@ -1,4 +1,5 @@
 import importlib
+import html
 import time
 import re
 from sys import argv
@@ -6,13 +7,12 @@ from typing import Optional
 
 from SaitamaRobot import (ALLOW_EXCL, CERT_PATH, DONATION_LINK, LOGGER,
                           OWNER_ID, PORT, SUPPORT_CHAT, TOKEN, URL, WEBHOOK,
-                          SUPPORT_CHAT, dispatcher, StartTime, telethn, updater,pbot)
+                          dispatcher, StartTime, telethn, updater)
 # needed to dynamically load modules
 # NOTE: Module order is not guaranteed, specify that in the config file!
 from SaitamaRobot.modules import ALL_MODULES
 from SaitamaRobot.modules.helper_funcs.chat_status import is_user_admin
 from SaitamaRobot.modules.helper_funcs.misc import paginate_modules
-import SaitamaRobot.modules.sql.users_sql as sql
 from telegram import (InlineKeyboardButton, InlineKeyboardMarkup, ParseMode,
                       Update)
 from telegram.error import (BadRequest, ChatMigrated, NetworkError,
@@ -52,27 +52,35 @@ def get_readable_time(seconds: int) -> str:
 
 
 PM_START_TEXT = """
-*Hello,  {}!, myself {}!* 
-*An Anime themed group management bot!
-
-• *Uptime:* `{}`
-• `{}` *users, across* `{}` *chats.*
+Hi {}, my name is {}! 
+I am an Anime themed group management bot with some fun extras ;)
+You can find the list of available commands with /help
 """
 
 HELP_STRINGS = """
-*{} comes with:*
-*AI Chatbot*, *Anime*, *Music*, *Notes*, *Filters*, *NSFW* *and more!*
+Hey there! My name is *{}*.
+I'm a part of Akatsuki
+Have a look at the following for an idea of some of the things I can help you with.
 
-🎛 *All commands can either be used with* `/` *or* `!`.
-🎛 *Reach out for support:* @PainRobotSupport [.](https://telegra.ph/file/9127957b0437ed3a64332.jpg)
+*Main* commands available:
+ • /help: PM's you this message.
+ • /help <module name>: PM's you info about that module.
+ • /donate: information on how to donate!
+ • /settings:
+   • in PM: will send you your settings for all supported modules.
+   • in a group: will redirect you to pm, with all that chat's settings.
+
+
+{}
+And the following:
 """.format(
     dispatcher.bot.first_name, ""
     if not ALLOW_EXCL else "\nAll commands can either be used with / or !.\n")
 
-KURISU_IMG = "https://telegra.ph/file/941412189a18bde394002.jpg"
-KURISUIMGSTART = "https://telegra.ph/file/b5e2d0c7cee078e059d66.mp4"
+SAITAMA_IMG = "https://telegra.ph/file/2bbe6208b097878d44d26.jpg"
 
 DONATE_STRING = """Heya, glad to hear you want to donate!
+Saitama is hosted on one of Kaizoku's Servers and doesn't require any donations as of now but \
 You can donate to the original writer of the Base code, Paul
 There are two ways of supporting him; [PayPal](paypal.me/PaulSonOfLars), or [Monzo](monzo.me/paulnionvestergaardlarsen)."""
 
@@ -139,7 +147,7 @@ def send_help(chat_id, text, keyboard=None):
 @run_async
 def test(update: Update, context: CallbackContext):
     # pprint(eval(str(update)))
-    # update.effective_message.reply_text("Hello tester! _I_ *have* `markdown`", parse_mode=ParseMode.MARKDOWN)
+    # update.effective_message.reply_text("Hola tester! _I_ *have* `markdown`", parse_mode=ParseMode.MARKDOWN)
     update.effective_message.reply_text("This person edited a message")
     print(update.effective_message)
 
@@ -183,48 +191,40 @@ def start(update: Update, context: CallbackContext):
         else:
             first_name = update.effective_user.first_name
             update.effective_message.reply_photo(
-                KURISU_IMG,
-                caption=PM_START_TEXT.format(
+                SAITAMA_IMG,
+                PM_START_TEXT.format(
                     escape_markdown(first_name),
-                    escape_markdown(context.bot.first_name),
-                    escape_markdown(uptime),
-                    sql.num_users(),
-                    sql.num_chats()),
+                    escape_markdown(context.bot.first_name)),
                 parse_mode=ParseMode.MARKDOWN,
                 disable_web_page_preview=True,
                 reply_markup=InlineKeyboardMarkup(
                     [[
                         InlineKeyboardButton(
-                            text=" Add Pain To Your Group",
+                            text="🧲Add Pain to your group!",
                             url="t.me/{}?startgroup=true".format(
                                 context.bot.username))
                     ],
                      [
                          InlineKeyboardButton(
-                             text="☎ Support",
+                             text="⚙️ Support Group",
                              url=f"https://t.me/{SUPPORT_CHAT}"),
                          InlineKeyboardButton(
-                             text="🔔 Updates",
-                             url="https://t.me/PainRobotUpdates"),
-                         InlineKeyboardButton(
-                             text="📕 Guide",
-                             url="https://t.me/PainRobotUpdates/4"),
-              
-                    ],
+                             text="🔔Updates Channel",
+                             url="https://t.me/PainRobotUpdates")
+                     ],
                      [
-                        InlineKeyboardButton(
-                             text="Nexus Network",
-                             url="https://t.me/nexusgroups"),                    
-                        InlineKeyboardButton(
-                             text="⚙️ Help & Commands ⚙️",
-                             url="https://t.me/PainAkatsukiRobot?start=help"),      
-                    ]]))
+                         InlineKeyboardButton(
+                             text="📖 Getting Started Guide",
+                             url="https://t.me/PainRobotUpdates/4")
+                     ],
+                     [
+                         InlineKeyboardButton(
+                             text="💾 Source Code.",
+                             url="https://github.com/PAINBOI2008/PainRobot")
+                     ]]))
     else:
-        update.effective_message.reply_video(
-                KURISUIMGSTART)
         update.effective_message.reply_text(
-            "I'm Reincarnated already!\n<b>Haven't died since:</b> <code>{}</code>"
-            .format(uptime),
+            "I'm online!\n<b>Up since:</b> <code>{}</code>".format(uptime),
             parse_mode=ParseMode.HTML)
 
 
@@ -538,16 +538,6 @@ def migrate_chats(update: Update, context: CallbackContext):
 
 
 def main():
-
-    if SUPPORT_CHAT is not None and isinstance(SUPPORT_CHAT, str):
-        try:
-            dispatcher.bot.sendMessage(f"@{SUPPORT_CHAT}", "[This World Shall Know Pain!](https://telegra.ph/file/75aed4e9f47b3ea45c962.mp4)", parse_mode=ParseMode.MARKDOWN)
-        except Unauthorized:
-            LOGGER.warning(
-                "Bot isnt able to send message to support_chat, go and check!")
-        except BadRequest as e:
-            LOGGER.warning(e.message)
-
     test_handler = CommandHandler("test", test)
     start_handler = CommandHandler("start", start)
 
@@ -585,7 +575,7 @@ def main():
             updater.bot.set_webhook(url=URL + TOKEN)
 
     else:
-        LOGGER.info("PainRobot is deployed sucessfully...")
+        LOGGER.info("Using long polling.")
         updater.start_polling(timeout=15, read_latency=4, clean=True)
 
     if len(argv) not in (1, 3, 4):
@@ -599,5 +589,4 @@ def main():
 if __name__ == '__main__':
     LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
     telethn.start(bot_token=TOKEN)
-    pbot.start()
     main()
