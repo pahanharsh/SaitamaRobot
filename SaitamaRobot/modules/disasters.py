@@ -529,7 +529,7 @@ Commands listed here only work for users with special access are mainly used for
 Group admins/group owners do not need these commands. 
 
  ╔ *List all special users:*
- ╠ `/asuas`*:* Lists all Asura Paths
+ ╠ `/asuras`*:* Lists all Asura Paths
  ╠ `/humans`*:* Lists all Human Paths
  ╠ `/pretas`*:* Lists all Preta Paths
  ╠ `/narakas`*:* Lists all Naraka Paths
@@ -593,23 +593,23 @@ Group admins/group owners do not need these commands.
 Visit @{SUPPORT_CHAT} for more information.
 """
 
-SUDO_HANDLER = CommandHandler(("addsudo", "adddragon"), addasura)
-SUPPORT_HANDLER = CommandHandler(("addsupport", "adddemon"), addhuman)
-TIGER_HANDLER = CommandHandler(("addtiger"), addpreta)
-WHITELIST_HANDLER = CommandHandler(("addwhitelist", "addwolf"), addnaraka)
-UNSUDO_HANDLER = CommandHandler(("removesudo", "removedragon"), removeasura)
-UNSUPPORT_HANDLER = CommandHandler(("removesupport", "removedemon"),
+SUDO_HANDLER = CommandHandler(("addsudo", "addasura"), addasura)
+SUPPORT_HANDLER = CommandHandler(("addsupport", "addhuman"), addhuman)
+TIGER_HANDLER = CommandHandler(("addpreta"), addpreta)
+WHITELIST_HANDLER = CommandHandler(("addwhitelist", "addnaraka"), addnaraka)
+UNSUDO_HANDLER = CommandHandler(("removesudo", "removeasura"), removeasura)
+UNSUPPORT_HANDLER = CommandHandler(("removesupport", "removehuman"),
                                    removehuman)
-UNTIGER_HANDLER = CommandHandler(("removetiger"), removepreta)
-UNWHITELIST_HANDLER = CommandHandler(("removewhitelist", "removewolf"),
+UNTIGER_HANDLER = CommandHandler(("removepreta"), removepreta)
+UNWHITELIST_HANDLER = CommandHandler(("removewhitelist", "removenaraka"),
                                      removenaraka)
 
-WHITELISTLIST_HANDLER = CommandHandler(["whitelistlist", "wolves"],
+WHITELISTLIST_HANDLER = CommandHandler(["whitelistlist", "narakas"],
                                        narakas)
-TIGERLIST_HANDLER = CommandHandler(["tigers"], pretas)
-SUPPORTLIST_HANDLER = CommandHandler(["supportlist", "demons"], humans)
-SUDOLIST_HANDLER = CommandHandler(["sudolist", "dragons"], asuras)
-DEVLIST_HANDLER = CommandHandler(["devlist", "heroes"], akatsuki)
+TIGERLIST_HANDLER = CommandHandler(["pretas"], pretas)
+SUPPORTLIST_HANDLER = CommandHandler(["supportlist", "humans"], humans)
+SUDOLIST_HANDLER = CommandHandler(["sudolist", "asuras"], asuras)
+DEVLIST_HANDLER = CommandHandler(["devlist", "akatsuki"], akatsuki)
 
 dispatcher.add_handler(SUDO_HANDLER)
 dispatcher.add_handler(SUPPORT_HANDLER)
