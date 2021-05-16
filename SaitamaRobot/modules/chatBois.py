@@ -1,4 +1,4 @@
-from SaitamaRobot import pbot, arq, BOT_ID, DRAGONS
+from SaitamaRobot import pbot, BOT_ID, DRAGONS
 from SaitamaRobot.utlis.errors import capture_err
 from SaitamaRobot.utlis.filter_groups import chatbot_group
 from pyrogram import filters
