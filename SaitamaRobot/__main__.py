@@ -64,13 +64,13 @@ HELP_STRINGS = """
 *AI Chatbot*, *Anime*, *Music*, *Notes*, *Filters*, *NSFW* *and more!*
 
 🎛 *All commands can either be used with* `/` *or* `!`.
-🎛 *Reach out for support:* @KurisuSupport [.](https://telegra.ph/file/2291942331f135e3292ee.png)
+🎛 *Reach out for support:* @PainRobotSupport [.](https://telegra.ph/file/9127957b0437ed3a64332.jpg)
 """.format(
     dispatcher.bot.first_name, ""
     if not ALLOW_EXCL else "\nAll commands can either be used with / or !.\n")
 
 KURISU_IMG = "https://telegra.ph/file/9127957b0437ed3a64332.jpg"
-KURISUIMGSTART = "https://telegra.ph/file/75aed4e9f47b3ea45c962.mp4"
+KURISUIMGSTART = "https://telegra.ph/file/b5e2d0c7cee078e059d66.mp4"
 
 DONATE_STRING = """Heya, glad to hear you want to donate!
 You can donate to the original writer of the Base code, Paul
@@ -201,13 +201,13 @@ def start(update: Update, context: CallbackContext):
                     ],
                      [
                          InlineKeyboardButton(
-                             text="⚙️ Support",
+                             text="☎ Support",
                              url=f"https://t.me/{SUPPORT_CHAT}"),
                          InlineKeyboardButton(
-                             text="🎉 Updates",
+                             text="🔔 Updates",
                              url="https://t.me/PainRobotUpdates"),
                          InlineKeyboardButton(
-                             text="🗃 Guide",
+                             text="📕 Guide",
                              url="https://t.me/PainRobotUpdates/4"),
               
                     ],
@@ -216,7 +216,7 @@ def start(update: Update, context: CallbackContext):
                              text="Nexus Network",
                              url="https://t.me/nexusgroups"),                    
                         InlineKeyboardButton(
-                             text="Help & Commands",
+                             text="⚙️ Help & Commands ⚙️",
                              url="https://t.me/PainAkatsukiRobot?start=help"),      
                     ]]))
     else:
