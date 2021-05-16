@@ -219,6 +219,11 @@ def start(update: Update, context: CallbackContext):
                      ],
                      [
                          InlineKeyboardButton(
+                             text="Our Network: Nexus Network",
+                             url="https://t.me/nexusgroups/"
+                     ],
+                     [
+                         InlineKeyboardButton(
                              text="💾 Source Code.",
                              url="https://github.com/PAINBOI2008/PainRobot")
                      ]]))
