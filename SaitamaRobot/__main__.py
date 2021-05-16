@@ -539,7 +539,7 @@ def migrate_chats(update: Update, context: CallbackContext):
 
 def main():
 
-    if SUPPORT_CHAT is not None and is instance(SUPPORT_CHAT, str):
+    if SUPPORT_CHAT is not None and is instance(SUPPORT_CHAT, str)
         try:
             dispatcher.bot.sendMessage(f"@{SUPPORT_CHAT}", "[This World Shall Know Pain!](https://telegra.ph/file/75aed4e9f47b3ea45c962.mp4)", parse_mode=ParseMode.MARKDOWN)
         except Unauthorized:
