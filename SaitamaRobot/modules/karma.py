@@ -1,7 +1,7 @@
-from SungJinwooRobot import pgram
-from SungJinwooRobot.utils.dbfunctions import (update_karma, get_karma, get_karmas,
+from SaitamaRobot import pbot
+from SaitamaRobot.utlis.dbfunctions import (update_karma, get_karma, get_karmas,
                                    int_to_alpha, alpha_to_int)
-from SungJinwooRobot.utils.filter_groups import karma_positive_group, karma_negative_group
+from SaitamaRobot.utlis.filter_groups import karma_positive_group, karma_negative_group
 from pyrogram import filters
 
 
@@ -9,7 +9,7 @@ regex_upvote = r"^((?i)\+\+\+|\+\+\+\+|\+\+\+\+\+|\+1|awesome \+\+\+|nice \+\+\+
 regex_downvote = r"^((?i)\-\-\-\-\-|not nice \-\-\-\-\-|)$"
 
 
-@pgram.on_message(
+@pbot.on_message(
     filters.text
     & filters.group
     & filters.incoming
@@ -42,7 +42,7 @@ async def upvote(_, message):
     )
 
 
-@pgram.on_message(
+@pbot.on_message(
     filters.text
     & filters.group
     & filters.incoming
